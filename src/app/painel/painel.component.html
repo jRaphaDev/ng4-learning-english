@@ -7,7 +7,7 @@
             </div>
             <div class="col-sm-6">
                 <div class="row d-flex justify-content-end">
-                    <app-attempts></app-attempts>
+                    <app-attempts [tentativas]="tentativas"></app-attempts>
                 </div>
             </div>
         </div>
@@ -18,7 +18,8 @@
                 <p> {{ rodadaFrase.fraseEn }}</p>
                 <div class="form-group">
                     <textarea class="form-control" rows="3"
-                        (input)="atualizaResposta($event)"></textarea>
+                        (input)="atualizaResposta($event)"
+                        [value]="resposta"></textarea>
                 </div>
             </div>
         </div>
