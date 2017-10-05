@@ -1,5 +1,5 @@
 import { Coracao } from './../shared/coracao.model';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, OnChanges, Input } from '@angular/core';
 
 @Component({
   selector: 'app-attempts',
@@ -18,6 +18,16 @@ export class AttemptsComponent implements OnInit {
 
   ngOnInit() {
     console.log(`testando qntd ${this.tentativas}`)
+  }
+
+  ngOnChanges() {
+    let indice = (this.coracoes.length - this.tentativas);
+
+    if (this.tentativas !== this.coracoes.length) {
+      this.coracoes[indice-1].cheio = false;
+    }
+
+    console.log(`testando qntd ${this.tentativas} changes`)
   }
 
 }
