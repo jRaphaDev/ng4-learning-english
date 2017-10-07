@@ -1,7 +1,7 @@
-import { Frase } from './../shared/frase.model';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, OnDestroy } from '@angular/core';
 
-import { FRASES } from './frase-mock';
+import { PHRASES } from './phrase-mock';
+import { Phrase } from '../shared/phrase.model';
 
 @Component({
   selector: 'app-painel',
@@ -10,51 +10,59 @@ import { FRASES } from './frase-mock';
 })
 export class PainelComponent implements OnInit {
 
-  public frases: Frase[] = FRASES;
-  public instrucao: string = 'Traduza a frase: ';
-  public resposta: string = '';
+  public phrases: Phrase[] = PHRASES;
+  public instruction: string = 'Traduza a frase: ';
+  public answer: string = '';
 
-  public rodadaFrase: Frase;
-  public rodada: number = 0;
+  public roundPhrase: Phrase;
+  public round: number = 0;
 
   public progress: number = 0;
 
-  public tentativas: number = 3;
+  public attempts: number = 3;
+
+  @Output() public gameOver: EventEmitter<string> = new EventEmitter();
 
   constructor() {
-    this.atualizaRodada();
+    this.refreshRound();
   }
 
   ngOnInit() {}
 
-  public atualizaResposta(resposta: Event): void {
-    this.resposta = ((<HTMLInputElement>resposta.target).value);
+  ngOnDestroy() {
   }
 
-  public verificarResposta(): void {
+  public refreshAnswer(answer: Event): void {
+    this.answer = ((<HTMLInputElement>answer.target).value);
+  }
 
-    console.log(`Verificar resposta: ${this.resposta}`);
+  public verificarAnswer(): void {
 
-    if (this.rodadaFrase.frasePt === this.resposta) {
+    if (this.roundPhrase.phrasePt === this.answer) {
 
-      this.rodada++;
-      this.progress += (100 / this.frases.length);
+      this.round++;
+      this.progress += (100 / this.phrases.length);
 
-      this.atualizaRodada();
+      if (this.round === 4) {
+        this.gameOver.emit('vitória');
+      }
+
+      this.refreshRound();
 
     } else {
 
-      this.tentativas--;
-      if (this.tentativas === -1) {
-        alert('Voce perdeu todas as tentativas !!!');
+      this.attempts--;
+
+      if (this.attempts === -1) {
+        this.gameOver.emit('derrota');
       }
     }
 
   }
 
-  public atualizaRodada(): void {
-    this.rodadaFrase = this.frases[this.rodada];
-    this.resposta = '';
+  public refreshRound(): void {
+    this.roundPhrase = this.phrases[this.round];
+    this.answer = '';
   }
 
 }

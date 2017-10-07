@@ -1,4 +1,4 @@
-import { Coracao } from './../shared/coracao.model';
+import { Heart } from './../shared/heart.model';
 import { Component, OnInit, OnChanges, Input } from '@angular/core';
 
 @Component({
@@ -8,26 +8,24 @@ import { Component, OnInit, OnChanges, Input } from '@angular/core';
 })
 export class AttemptsComponent implements OnInit {
 
-  @Input() public tentativas: number;
+  @Input() public attempts: number;
 
-  public coracoes: Coracao[] = [
-    new Coracao(true), new Coracao(true), new Coracao(true)
+  public hearts: Heart[] = [
+    new Heart(true), new Heart(true), new Heart(true)
   ];
 
   constructor() {}
 
   ngOnInit() {
-    console.log(`testando qntd ${this.tentativas}`)
   }
 
   ngOnChanges() {
-    let indice = (this.coracoes.length - this.tentativas);
+    let indice = (this.hearts.length - this.attempts);
 
-    if (this.tentativas !== this.coracoes.length) {
-      this.coracoes[indice-1].cheio = false;
+    if (this.attempts !== this.hearts.length) {
+      this.hearts[indice-1].full = false;
     }
 
-    console.log(`testando qntd ${this.tentativas} changes`)
   }
 
 }

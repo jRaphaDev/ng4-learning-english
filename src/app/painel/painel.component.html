@@ -7,19 +7,19 @@
             </div>
             <div class="col-sm-6">
                 <div class="row d-flex justify-content-end">
-                    <app-attempts [tentativas]="tentativas"></app-attempts>
+                    <app-attempts [attempts]="attempts"></app-attempts>
                 </div>
             </div>
         </div>
 
         <div class="row">
             <div class="col">
-                <h6> {{ instrucao }}</h6>
-                <p> {{ rodadaFrase.fraseEn }}</p>
+                <h6> {{ instruction }}</h6>
+                <p> {{ roundPhrase.phraseEn }}</p>
                 <div class="form-group">
                     <textarea class="form-control" rows="3"
-                        (input)="atualizaResposta($event)"
-                        [value]="resposta"></textarea>
+                        (input)="refreshAnswer($event)"
+                        [value]="answer"></textarea>
                 </div>
             </div>
         </div>
@@ -28,7 +28,7 @@
             <div class="col">
                 <div class="d-flex justify-content-end">
                     <button type="button" class="btn btn-primary"
-                        (click)="verificarResposta()">Verificar</button>
+                        (click)="verificarAnswer()">Verificar</button>
                 </div>
             </div>
         </div>

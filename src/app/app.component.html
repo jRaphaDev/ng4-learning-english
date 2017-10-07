@@ -1,2 +1,25 @@
 <app-header></app-header>
-  <app-painel></app-painel>
+
+  <div *ngIf="gaming; else endGameLoose">
+    <app-painel (gameOver)="gameOver($event)"></app-painel>
+  </div>
+  <ng-template #endGameLoose>
+    <div *ngIf="typeEnding === 'derrota'; else endGameWin" class="container" style="margin-top: 50px">
+      <div class="row">
+        <div class="col">
+          <h3 style="color:red"> Voce Perdeu </h3>
+          <button class="btn btn-primary" (click)="restartGame()">Jogar Novamente</button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template #endGameWin>
+    <div class="container" style="margin-top: 50px">
+      <div class="row">
+        <div class="col">
+          <h3 style="color:green"> Voce Ganhou </h3>
+          <button class="btn btn-primary" (click)="restartGame()">Jogar Novamente</button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
